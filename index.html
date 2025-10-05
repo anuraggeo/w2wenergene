@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>W2W EnerGene — Waste to Wealth with Engineered Microbes</title>
+  <meta name="description" content="W2W EnerGene builds bioprocesses to extract REEs and lock CO₂ from coal fly ash and allied residues — circular, low-carbon solutions."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { brand1: '#10B981', brand2: '#06B6D4', brand3: '#6366F1' }
+        }
+      }
+    }
+  </script>
+  <style>
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, sans-serif; }
+    .grad-text { background: linear-gradient(90deg,#34d399,#22d3ee,#818cf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .glass { background: rgba(17,24,39,.6); backdrop-filter: blur(8px); }
+    .card { background: rgba(17,24,39,.6); border: 1px solid rgba(255,255,255,.08); }
+    .grid-bg { position: absolute; inset: 0; opacity: .04;
+      background-image: linear-gradient(to right, rgba(255,255,255,.6) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,.6) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none; }
+  </style>
+  <!-- React + ReactDOM (UMD) and Babel for in-browser JSX -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Chart.js for interactive charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100 relative">
+  <div class="grid-bg"></div>
+  <header class="sticky top-0 z-40 glass border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3 shadow-md"></div>
+        <a href="./" class="font-extrabold tracking-tight text-xl">W2W <span class="text-brand1">Ener</span><span class="text-brand3">Gene</span></a>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm opacity-90">
+        <a href="./index.html#tech" class="hover:opacity-100 opacity-80">Technology</a>
+        <a href="./index.html#impact" class="hover:opacity-100 opacity-80">Impact</a>
+        <a href="./index.html#roadmap" class="hover:opacity-100 opacity-80">Roadmap</a>
+        <a href="./index.html#contact" class="hover:opacity-100 opacity-80">Contact</a>
+        <a href="./updates.html" class="hover:opacity-100 opacity-80">Updates</a>
+      </nav>
+      <a href="./index.html#contact" class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg">Get early access →</a>
+    </div>
+  </header>
+
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    const Section = ({ id, children, className = "" }) => (
+      <section id={id} className={"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 " + className}>
+        {children}
+      </section>
+    );
+
+    function Tabs({ tabs, active, onChange }) {
+      return (
+        <div className="flex flex-wrap gap-2">
+          {tabs.map(t => (
+            <button key={t} onClick={() => onChange(t)}
+              className={"px-4 py-2 rounded-xl border " + (active === t ? "border-brand1 bg-brand1/10" : "border-white/10 hover:bg-white/5")}>
+              {t}
+            </button>
+          ))}
+        </div>
+      );
+    }
+
+    function ChartCard({ type, data, options }) {
+      const canvasRef = useRef(null);
+      const chartRef = useRef(null);
+
+      useEffect(() => {
+        if (!canvasRef.current) return;
+        if (chartRef.current) chartRef.current.destroy();
+        chartRef.current = new Chart(canvasRef.current, { type, data, options });
+        return () => chartRef.current && chartRef.current.destroy();
+      }, [type, JSON.stringify(data), JSON.stringify(options)]);
+
+      return <canvas ref={canvasRef} className="w-full h-64" />;
+    }
+
+    function Simulator() {
+      const [pulp, setPulp] = useState(5);
+      const [pH, setPH] = useState(3);
+      const [time, setTime] = useState(24);
+
+      const recovery = Math.max(0, Math.min(95, (50 + (time * 0.8) - Math.abs(pH - 2.5) * 8 - (pulp - 5) * 2))).toFixed(1);
+      const acidUse  = Math.max(5, (20 + (pulp * 1.2) + Math.abs(pH - 2.0) * 4 - time * 0.1)).toFixed(1);
+
+      const data = {
+        labels: ["0h","6h","12h","18h","24h","36h","48h"],
+        datasets: [{ label: "Projected REE recovery (%)",
+          data: [15, 28, 45, 58, Number(recovery), Math.min(98, Number(recovery) + 10), Math.min(99, Number(recovery) + 12)],
+          fill: false, borderWidth: 2 }]
+      };
+
+      const options = {
+        plugins: { legend: { labels: { color: "#e5e7eb" } } },
+        scales: { x: { ticks: { color: "#9ca3af" }, grid: { color: "rgba(255,255,255,.06)" } },
+                  y: { ticks: { color: "#9ca3af" }, grid: { color: "rgba(255,255,255,.06)" } } }
+      };
+
+      return (
+        <div className="grid lg:grid-cols-2 gap-6 items-start">
+          <div className="rounded-2xl card p-5">
+            <h4 className="font-semibold text-lg mb-3">KPI simulator (illustrative)</h4>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm opacity-80">Pulp density: {pulp}%</label>
+                <input type="range" min="1" max="20" value={pulp} onChange={e=>setPulp(+e.target.value)}
+                  className="w-full accent-brand1" />
+              </div>
+              <div>
+                <label className="text-sm opacity-80">pH: {pH.toFixed(1)}</label>
+                <input type="range" min="1" max="6" step="0.1" value={pH} onChange={e=>setPH(+e.target.value)}
+                  className="w-full accent-brand1" />
+              </div>
+              <div>
+                <label className="text-sm opacity-80">Leach time: {time} h</label>
+                <input type="range" min="6" max="48" step="6" value={time} onChange={e=>setTime(+e.target.value)}
+                  className="w-full accent-brand1" />
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-center">
+                <div className="rounded-xl card p-4">
+                  <div className="text-2xl font-bold">{recovery}%</div>
+                  <div className="text-xs opacity-70">Projected REE recovery</div>
+                </div>
+                <div className="rounded-xl card p-4">
+                  <div className="text-2xl font-bold">{acidUse}</div>
+                  <div className="text-xs opacity-70">kg acid / t ash (est.)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="rounded-2xl card p-5">
+            <ChartCard type="line" data={data} options={options} />
+          </div>
+        </div>
+      );
+    }
+
+    function Footer() {
+      const year = new Date().getFullYear();
+      return (
+        <footer className="border-t border-white/5">
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
+            <div className="flex items-center gap-2">
+              <div className="h-7 w-7 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3"></div>
+              <div className="font-bold">W2W EnerGene</div>
+            </div>
+            <div className="flex items-center gap-4">
+              <a href="./index.html#tech">Technology</a>
+              <a href="./index.html#impact">Impact</a>
+              <a href="./index.html#roadmap">Roadmap</a>
+              <a href="./index.html#contact">Contact</a>
+              <a href="./updates.html">Updates</a>
+            </div>
+            <div className="opacity-60">© {year} W2W EnerGene. All rights reserved.</div>
+          </section>
+        </footer>
+      );
+    }
+
+    function App() {
+      const [activeTab, setActiveTab] = React.useState("Microbial Engines");
+
+      // Smooth anchor scroll
+      React.useEffect(() => {
+        const handler = (e) => {
+          if (e.target.matches('a[href^="#"]')) {
+            const href = e.target.getAttribute('href');
+            if (href && href.startsWith("#")) {
+              e.preventDefault();
+              const el = document.querySelector(href);
+              if (el) el.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        };
+        document.addEventListener("click", handler);
+        return () => document.removeEventListener("click", handler);
+      }, []);
+
+      return (
+        <div>
+          <Section className="pt-14 pb-10">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+                  Turning <span className="grad-text">waste to wealth</span> with engineered microbes
+                </h1>
+                <p className="mt-4 text-neutral-300/90 max-w-prose">
+                  W2W EnerGene builds bio-leaching and CO₂-locking bioprocesses to extract critical minerals (REEs, V, Ga, more) from coal fly ash and allied residues — accelerating a circular, low-carbon economy.
+                </p>
+                <div className="mt-6 flex flex-wrap gap-3">
+                  <a href="#tech" className="inline-flex items-center gap-2 rounded-xl bg-neutral-800 px-4 py-2 hover:bg-neutral-700">⚛ See how it works</a>
+                  <a href="#contact" className="inline-flex items-center gap-2 rounded-xl border border-brand1/50 px-4 py-2 hover:bg-brand1/10">🚀 Partner with us</a>
+                  <a href="./updates.html" className="inline-flex items-center gap-2 rounded-xl border border-brand3/50 px-4 py-2 hover:bg-brand3/10">📰 Updates</a>
+                </div>
+              </div>
+              <div className="relative rounded-3xl card p-6 shadow-2xl">
+                <Tabs tabs={["Microbial Engines","Materials Activation","Selective Recovery"]} active={activeTab} onChange={setActiveTab} />
+                <div className="mt-4 text-sm opacity-90 min-h-[7rem]">
+                  {activeTab === "Microbial Engines" && (
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Acid-producing heterotrophs & lithotrophs</li>
+                      <li>Indigenous strains + engineering</li>
+                      <li>Consortia tuned for CFA / red-mud</li>
+                    </ul>
+                  )}
+                  {activeTab === "Materials Activation" && (
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Desilication / alkali activation</li>
+                      <li>Flash-Joule-Heating R&amp;D</li>
+                      <li>Particle size & mineralogy control</li>
+                    </ul>
+                  )}
+                  {activeTab === "Selective Recovery" && (
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Oxalate capture & calcination</li>
+                      <li>Solvent extraction (D2EHPA etc.)</li>
+                      <li>Ion-exchange polishing</li>
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          </Section>
+
+          <Section id="tech" className="py-14">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Interactive technology sandbox</h2>
+            <Simulator />
+          </Section>
+
+          <Section id="impact" className="py-14">
+            <h2 className="text-3xl sm:text-4xl font-bold">Impact metrics we care about</h2>
+            <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div className="rounded-2xl card p-5"><div className="text-2xl font-bold">≥ 70%</div><div className="mt-1 opacity-80">REE recovery</div><div className="text-xs opacity-60">target at pilot</div></div>
+              <div className="rounded-2xl card p-5"><div className="text-2xl font-bold">-40%</div><div className="mt-1 opacity-80">Acid usage</div><div className="text-xs opacity-60">vs baseline</div></div>
+              <div className="rounded-2xl card p-5"><div className="text-2xl font-bold">&gt; 80%</div><div className="mt-1 opacity-80">Water recycle</div><div className="text-xs opacity-60">closed loop</div></div>
+              <div className="rounded-2xl card p-5"><div className="text-2xl font-bold">kg/t</div><div className="mt-1 opacity-80">CO₂ locked</div><div className="text-xs opacity-60">as carbonates</div></div>
+            </div>
+          </Section>
+
+          <Section id="roadmap" className="py-14">
+            <h2 className="text-3xl sm:text-4xl font-bold">Roadmap</h2>
+            <ol className="mt-6 grid lg:grid-cols-4 gap-6 text-sm">
+              <li className="rounded-2xl card p-5 hover:bg-white/5 transition-colors cursor-default">Q4 2025 — MVP landing &amp; partner sign-ups</li>
+              <li className="rounded-2xl card p-5 hover:bg-white/5 transition-colors cursor-default">Q1 2026 — Bench-scale validation (L9 Taguchi)</li>
+              <li className="rounded-2xl card p-5 hover:bg-white/5 transition-colors cursor-default">Q2 2026 — Pilot with 1–2 TPS / utilities</li>
+              <li className="rounded-2xl card p-5 hover:bg-white/5 transition-colors cursor-default">Q3 2026 — Selective Nd-Pr-Dy stream</li>
+            </ol>
+          </Section>
+
+          <Section id="contact" className="py-14">
+            <div className="grid lg:grid-cols-2 gap-10 items-start">
+              <div>
+                <h2 className="text-3xl sm:text-4xl font-bold">Let’s collaborate</h2>
+                <p className="mt-2 max-w-prose text-neutral-300/90">
+                  Looking to valorize ash dumps, reduce environmental liabilities, or co-develop IP around bio-extraction and mineral carbonation? Tell us about your site and constraints.
+                </p>
+                <div className="mt-6 space-y-3 text-sm opacity-90">
+                  <div className="flex items-center gap-2">✉️ <a className="underline decoration-brand1/40 underline-offset-2" href="mailto:contact@w2wenergene.in">contact@w2wenergene.in</a></div>
+                  <div className="flex items-center gap-2">☎️ +91-XXXXXXXXXX</div>
+                  <div className="flex items-center gap-2">📍 IIT Bombay, Mumbai</div>
+                </div>
+              </div>
+
+              <form name="contact" method="POST" data-netlify="true" className="rounded-3xl card p-6 space-y-4">
+                <input type="hidden" name="form-name" value="contact" />
+                <div>
+                  <label className="text-sm opacity-80">Name</label>
+                  <input name="name" required className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"/>
+                </div>
+                <div>
+                  <label className="text-sm opacity-80">Email</label>
+                  <input name="email" type="email" required className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"/>
+                </div>
+                <div>
+                  <label className="text-sm opacity-80">Organization</label>
+                  <input name="org" className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"/>
+                </div>
+                <div>
+                  <label className="text-sm opacity-80">Message</label>
+                  <textarea name="message" rows="4" className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"></textarea>
+                </div>
+                <button type="submit" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg">
+                  Send message →
+                </button>
+                <p className="text-xs opacity-60">This form is processed by Netlify when deployed.</p>
+              </form>
+            </div>
+          </Section>
+
+          <Footer />
+        </div>
+      );
+    }
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<App />);
+  </script>
+</body>
+</html>

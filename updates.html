@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Updates — W2W EnerGene</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { brand1: '#10B981', brand2: '#06B6D4', brand3: '#6366F1' } } }
+    }
+  </script>
+  <style>
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, sans-serif; }
+    .glass { background: rgba(17,24,39,.6); backdrop-filter: blur(8px); }
+    .card { background: rgba(17,24,39,.6); border: 1px solid rgba(255,255,255,.08); }
+    .grid-bg { position: absolute; inset: 0; opacity: .04;
+      background-image: linear-gradient(to right, rgba(255,255,255,.6) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,.6) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none; }
+  </style>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100 relative">
+  <div class="grid-bg"></div>
+  <header class="sticky top-0 z-40 glass border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3 shadow-md"></div>
+        <a href="./" class="font-extrabold tracking-tight text-xl">W2W <span class="text-brand1">Ener</span><span class="text-brand3">Gene</span></a>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm opacity-90">
+        <a href="./index.html#tech" class="hover:opacity-100 opacity-80">Technology</a>
+        <a href="./index.html#impact" class="hover:opacity-100 opacity-80">Impact</a>
+        <a href="./index.html#roadmap" class="hover:opacity-100 opacity-80">Roadmap</a>
+        <a href="./index.html#contact" class="hover:opacity-100 opacity-80">Contact</a>
+        <a href="./updates.html" class="hover:opacity-100 opacity-80">Updates</a>
+      </nav>
+      <a href="./index.html#contact" class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg">Get early access →</a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6">Updates</h1>
+
+    <div class="grid md:grid-cols-[1fr,280px] gap-8">
+      <section>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
+          <input id="search" class="w-full sm:w-96 rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1" placeholder="Search updates…"/>
+          <select id="sort" class="rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1 w-full sm:w-auto">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+          </select>
+        </div>
+        <div id="posts" class="space-y-4"></div>
+      </section>
+
+      <aside>
+        <div class="rounded-2xl card p-4">
+          <h2 class="font-semibold mb-2">Tags</h2>
+          <div id="tags" class="flex flex-wrap gap-2"></div>
+          <button id="clearTags" class="mt-3 text-sm opacity-80 underline hover:opacity-100">Clear filters</button>
+        </div>
+        <div class="rounded-2xl card p-4 mt-4">
+          <h2 class="font-semibold mb-2">RSS</h2>
+          <p class="text-sm opacity-80">Subscribe via <a class="underline" href="./feed.xml">feed.xml</a></p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
+      <div class="flex items-center gap-2">
+        <div class="h-7 w-7 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3"></div>
+        <div class="font-bold">W2W EnerGene</div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="./index.html#tech">Technology</a>
+        <a href="./index.html#impact">Impact</a>
+        <a href="./index.html#roadmap">Roadmap</a>
+        <a href="./index.html#contact">Contact</a>
+        <a href="./updates.html">Updates</a>
+      </div>
+      <div class="opacity-60">© <span id="year"></span> W2W EnerGene. All rights reserved.</div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    const postsEl = document.getElementById('posts');
+    const tagsEl = document.getElementById('tags');
+    const searchEl = document.getElementById('search');
+    const sortEl = document.getElementById('sort');
+    const clearTagsBtn = document.getElementById('clearTags');
+
+    let allPosts = [];
+    let activeTags = new Set();
+
+    function render() {
+      let filtered = [...allPosts];
+
+      const q = searchEl.value.trim().toLowerCase();
+      if (q) {
+        filtered = filtered.filter(p => (p.title + ' ' + p.excerpt + ' ' + (p.tags||[]).join(' ')).toLowerCase().includes(q));
+      }
+
+      if (activeTags.size > 0) {
+        filtered = filtered.filter(p => p.tags && p.tags.some(t => activeTags.has(t)));
+      }
+
+      const sort = sortEl.value;
+      filtered.sort((a,b) => sort === 'newest'
+        ? (new Date(b.date) - new Date(a.date))
+        : (new Date(a.date) - new Date(b.date)));
+
+      postsEl.innerHTML = filtered.map(p => `
+        <article class="rounded-2xl card p-5 hover:bg-white/5 transition-colors">
+          <div class="flex items-center justify-between gap-4 flex-wrap">
+            <a class="text-xl font-semibold hover:underline" href="./post.html?id=${encodeURIComponent(p.id)}">${p.title}</a>
+            <time class="text-sm opacity-70">${new Date(p.date).toLocaleDateString()}</time>
+          </div>
+          <p class="mt-2 opacity-90">${p.excerpt}</p>
+          <div class="mt-3 flex flex-wrap gap-2">
+            ${(p.tags||[]).map(t => `<button class="px-3 py-1 rounded-full text-xs bg-brand1/10 border border-brand1/30 hover:bg-brand1/20" data-tag="${t}">${t}</button>`).join('')}
+          </div>
+        </article>
+      `).join('');
+
+      postsEl.querySelectorAll('[data-tag]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          activeTags.add(btn.getAttribute('data-tag'));
+          renderTags();
+          render();
+        });
+      });
+    }
+
+    function renderTags() {
+      const tags = Array.from(new Set(allPosts.flatMap(p => p.tags || []))).sort();
+      tagsEl.innerHTML = tags.map(t => `
+        <button class="px-3 py-1 rounded-full text-sm ${activeTags.has(t) ? 'bg-brand3/20 border border-brand3/40' : 'bg-neutral-800 border border-white/10 hover:bg-white/5'}" data-filter="${t}">${t}</button>
+      `).join('');
+
+      tagsEl.querySelectorAll('[data-filter]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const t = btn.getAttribute('data-filter');
+          if (activeTags.has(t)) activeTags.delete(t); else activeTags.add(t);
+          renderTags();
+          render();
+        });
+      });
+    }
+
+    clearTagsBtn.addEventListener('click', () => { activeTags.clear(); renderTags(); render(); });
+    searchEl.addEventListener('input', render);
+    sortEl.addEventListener('change', render);
+
+    fetch('./posts.json').then(r => r.json()).then(data => {
+      allPosts = data;
+      renderTags();
+      render();
+    });
+  </script>
+</body>
+</html>

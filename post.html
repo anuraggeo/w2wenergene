@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post — W2W EnerGene</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: { brand1: '#10B981', brand2: '#06B6D4', brand3: '#6366F1' } } }
+    }
+  </script>
+  <style>
+    html, body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, sans-serif; }
+    .glass { background: rgba(17,24,39,.6); backdrop-filter: blur(8px); }
+    .card { background: rgba(17,24,39,.6); border: 1px solid rgba(255,255,255,.08); }
+    .grid-bg { position: absolute; inset: 0; opacity: .04;
+      background-image: linear-gradient(to right, rgba(255,255,255,.6) 1px, transparent 1px),
+                        linear-gradient(to bottom, rgba(255,255,255,.6) 1px, transparent 1px);
+      background-size: 32px 32px; pointer-events: none; }
+  </style>
+</head>
+<body class="min-h-screen bg-neutral-950 text-neutral-100 relative">
+  <div class="grid-bg"></div>
+  <header class="sticky top-0 z-40 glass border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="h-8 w-8 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3 shadow-md"></div>
+        <a href="./" class="font-extrabold tracking-tight text-xl">W2W <span class="text-brand1">Ener</span><span class="text-brand3">Gene</span></a>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm opacity-90">
+        <a href="./index.html#tech" class="hover:opacity-100 opacity-80">Technology</a>
+        <a href="./index.html#impact" class="hover:opacity-100 opacity-80">Impact</a>
+        <a href="./index.html#roadmap" class="hover:opacity-100 opacity-80">Roadmap</a>
+        <a href="./index.html#contact" class="hover:opacity-100 opacity-80">Contact</a>
+        <a href="./updates.html" class="hover:opacity-100 opacity-80">Updates</a>
+      </nav>
+      <a href="./index.html#contact" class="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg">Get early access →</a>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <a href="./updates.html" class="text-sm opacity-80 hover:opacity-100">← Back to updates</a>
+    <article id="article" class="mt-4"></article>
+  </main>
+
+  <footer class="border-t border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
+      <div class="flex items-center gap-2">
+        <div class="h-7 w-7 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3"></div>
+        <div class="font-bold">W2W EnerGene</div>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="./index.html#tech">Technology</a>
+        <a href="./index.html#impact">Impact</a>
+        <a href="./index.html#roadmap">Roadmap</a>
+        <a href="./index.html#contact">Contact</a>
+        <a href="./updates.html">Updates</a>
+      </div>
+      <div class="opacity-60">© <span id="year"></span> W2W EnerGene. All rights reserved.</div>
+    </div>
+  </footer>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
+  <script>
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+    const id = getParam('id');
+    const article = document.getElementById('article');
+
+    fetch('./posts.json').then(r => r.json()).then(posts => {
+      const p = posts.find(x => x.id === id);
+      if (!p) { article.innerHTML = '<p class="opacity-80">Post not found.</p>'; return; }
+      document.title = p.title + ' — W2W EnerGene';
+      article.innerHTML = `
+        <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">${p.title}</h1>
+        <div class="mt-2 text-sm opacity-70">${new Date(p.date).toLocaleDateString()}</div>
+        <div class="mt-2 flex flex-wrap gap-2">
+          ${(p.tags||[]).map(t => `<span class="px-3 py-1 rounded-full text-xs bg-brand1/10 border border-brand1/30">${t}</span>`).join('')}
+        </div>
+        <div class="prose prose-invert mt-6 max-w-none">
+          ${p.content_html}
+        </div>
+      `;
+    });
+  </script>
+</body>
+</html>

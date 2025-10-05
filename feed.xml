@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>W2W EnerGene — Updates</title>
+    <link>https://YOUR-NETLIFY-SITE.netlify.app/updates.html</link>
+    <description>News and updates from W2W EnerGene</description>
+    <language>en</language>
+  </channel>
+</rss>

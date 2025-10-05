@@ -1,0 +1,36 @@
+[
+  {
+    "id": "bench-scale-72-recovery",
+    "title": "Bench-scale bioleach hits 72% REE recovery",
+    "date": "2025-09-30",
+    "tags": [
+      "R&D",
+      "Bioleaching",
+      "Pilot KPIs"
+    ],
+    "excerpt": "Our L9 Taguchi run demonstrates \u226572% recovery at pH 2.6 with reduced acid usage. Next: Nd\u2013Pr\u2013Dy separation.",
+    "content_html": "<p>We completed an L9 Taguchi design exploring pulp density, pH, and time windows. The best run achieved <strong>72% REE recovery</strong> at pH 2.6 with reduced acid consumption. Upcoming work focuses on selective recovery (oxalate \u2192 calcination) and Nd\u2013Pr\u2013Dy polishing via SX/IX.</p>"
+  },
+  {
+    "id": "mou-with-utility-partner",
+    "title": "MoU signed with utility partner for pilot ash site",
+    "date": "2025-10-01",
+    "tags": [
+      "Partnerships",
+      "Pilots"
+    ],
+    "excerpt": "We signed an MoU to validate bioprocess + carbonation at an active ash pond; pilot KPI dashboard will be public.",
+    "content_html": "<p>We executed an MoU with a utility to run a <em>site-integrated</em> pilot combining bioleaching and mineral carbonation. The pilot will share anonymized KPIs: %REE recovery, kg acid/kg REE, water recycle, and CO\u2082 locked.</p>"
+  },
+  {
+    "id": "conference-mgwi-iitb",
+    "title": "Talk at MGWI Lab, IIT Bombay",
+    "date": "2025-09-15",
+    "tags": [
+      "Events",
+      "Community"
+    ],
+    "excerpt": "Shared our waste-to-wealth roadmap and CO\u2082-locking strategy; thanks to the MGWI community for feedback.",
+    "content_html": "<p>At IIT Bombay's MGWI Lab, we presented the <strong>W2W EnerGene</strong> roadmap, covering materials activation, bioleach windows, and selective recovery flowsheets. We appreciate the feedback and potential student collaborations.</p>"
+  }
+]
