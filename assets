@@ -1,1 +1,4 @@
+git add -A
+git commit -m "Move logo into assets/"
+git push
 
