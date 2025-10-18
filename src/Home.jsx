@@ -1,4 +1,7 @@
 import React from "react";
+import Hero from "./Components/Hero";
+import KPIs from "./Components/KPIs";
+import Pipeline from "./Components/Pipeline";
 import Simulator from "./Components/Simulator";
 
 export default function Home() {
