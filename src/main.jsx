@@ -1,18 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Step1 from "./Steps/Step1";
-import Step2 from "./Steps/Step2";
-import Step3 from "./Steps/Step3";
-import Step4 from "./Steps/Step4";
+import App from "./App.jsx";
 import "./App.css";
+
+// NOTE: case-sensitive paths (Linux build):
+import Step1 from "./Steps/Step1.jsx";
+import Step2 from "./Steps/Step2.jsx";
+import Step3 from "./Steps/Step3.jsx";
+import Step4 from "./Steps/Step4.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<App />} />
         <Route path="/step1" element={<Step1 />} />
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
