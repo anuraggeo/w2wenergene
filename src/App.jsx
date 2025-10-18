@@ -1,4 +1,7 @@
 import "./App.css";
+import Hero from "./Components/Hero";
+import KPIs from "./Components/KPIs";
+import Pipeline from "./Components/Pipeline";
 import Simulator from "./Components/Simulator"; // we'll use your existing component
 
 export default function App() {
