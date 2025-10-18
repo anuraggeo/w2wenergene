@@ -1,5 +1,5 @@
 import React from "react";
-import Simulator from "./components/Simulator";
+import Simulator from "./Components/Simulator";
 
 export default function Home() {
   return (
