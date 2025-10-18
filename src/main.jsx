@@ -3,6 +3,16 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App.jsx";
 import "./App.css";
+import Updates from "./Pages/Updates";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/updates" element={<Updates />} />
+    </Routes>
+  </BrowserRouter>
+);
 
 // NOTE: case-sensitive paths (Linux build):
 import Step1 from "./Steps/Step1.jsx";
