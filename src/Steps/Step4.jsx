@@ -1,4 +1,4 @@
-import StepLayout from "../components/StepLayout";
+import StepLayout from "../Components/StepLayout";
 
 export default function Step4() {
   return (
