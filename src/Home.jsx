@@ -1,4 +1,5 @@
 import React from "react";
+import Simulator from "./components/Simulator";
 
 export default function Home() {
   return (
@@ -76,6 +77,7 @@ export default function Home() {
         </p>
       </section>
 
+ <Simulator />
       {/* Impact Section (example subset) */}
       <section id="impact" style={{ padding: "3rem 2rem" }}>
         <h2 style={{ fontSize: "1.75rem", fontWeight: 700 }}>Impact Metrics</h2>
