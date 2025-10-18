@@ -1,107 +1,95 @@
+import React from "react";
 import { Link } from "react-router-dom";
-import "./App.css";
 
 export default function App() {
   return (
-    <div
+    <main
       style={{
         minHeight: "100vh",
-        background: "linear-gradient(180deg, #061017, #0a1a22)",
+        background: "linear-gradient(180deg, #0a0f12, #101820)",
         color: "white",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
         fontFamily: "Inter Tight, sans-serif",
         padding: "2rem",
+        textAlign: "center",
       }}
     >
-      {/* Page Title */}
-      <h1
-        style={{
-          textAlign: "center",
-          fontSize: "2.2rem",
-          fontWeight: "700",
-          color: "#00e0ff",
-        }}
-      >
-        Rare Earth Element Extraction from Coal Ash
+      <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>
+        🌍 W2W-EnerGene
       </h1>
-      <p style={{ textAlign: "center", color: "#ccc", marginTop: "0.5rem" }}>
-        From Waste to Wealth using Microbial Intelligence
+      <p style={{ color: "#9fd", maxWidth: "600px" }}>
+        Turning industrial waste into wealth using microbes and green
+        technology. Explore the four steps of our innovation.
       </p>
 
-      {/* Process Flow */}
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: "3rem",
-          marginTop: "3rem",
-        }}
-      >
-        {/* STEP 1 */}
-        <StepBox
-          color="#00ff88"
-          title="STEP 1"
-          subtitle="Activation of Coal Ash"
-          path="/step1"
-        />
-        <Arrow color="#00ff88" />
+      <div style={{ marginTop: "3rem", display: "grid", gap: "1rem" }}>
+        <Link to="/step1">
+          <button
+            style={{
+              background: "#00ff88",
+              color: "#000",
+              padding: "1rem 2rem",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "700",
+              cursor: "pointer",
+            }}
+          >
+            Step 1 – Activation of Coal Ash
+          </button>
+        </Link>
 
-        {/* STEP 2 */}
-        <StepBox
-          color="#00e0ff"
-          title="STEP 2"
-          subtitle="Bioleaching"
-          path="/step2"
-        />
-        <Arrow color="#00e0ff" />
+        <Link to="/step2">
+          <button
+            style={{
+              background: "#00e0ff",
+              color: "#000",
+              padding: "1rem 2rem",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "700",
+              cursor: "pointer",
+            }}
+          >
+            Step 2 – Bioleaching
+          </button>
+        </Link>
 
-        {/* STEP 3 */}
-        <StepBox
-          color="#4b6fff"
-          title="STEP 3"
-          subtitle="Precipitation"
-          path="/step3"
-        />
-        <Arrow color="#4b6fff" />
+        <Link to="/step3">
+          <button
+            style={{
+              background: "#4b6fff",
+              color: "#fff",
+              padding: "1rem 2rem",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "700",
+              cursor: "pointer",
+            }}
+          >
+            Step 3 – Precipitation
+          </button>
+        </Link>
 
-        {/* STEP 4 */}
-        <StepBox
-          color="#00ffcc"
-          title="STEP 4"
-          subtitle="CO₂ Sequestration"
-          path="/step4"
-        />
+        <Link to="/step4">
+          <button
+            style={{
+              background: "#00ffcc",
+              color: "#000",
+              padding: "1rem 2rem",
+              border: "none",
+              borderRadius: "8px",
+              fontWeight: "700",
+              cursor: "pointer",
+            }}
+          >
+            Step 4 – CO₂ Sequestration
+          </button>
+        </Link>
       </div>
-    </div>
-  );
-}
-
-/* --- StepBox Component --- */
-function StepBox({ color, title, subtitle, path }) {
-  return (
-    <Link to={path} style={{ textDecoration: "none", width: "90%", maxWidth: "450px" }}>
-      <div
-        style={{
-          border: `2px solid ${color}`,
-          borderRadius: "12px",
-          padding: "1.5rem",
-          background: "rgba(255,255,255,0.05)",
-          textAlign: "center",
-          boxShadow: `0 0 25px ${color}33`,
-          transition: "all 0.3s ease",
-        }}
-        className="hoverable-step"
-      >
-        <h2 style={{ color, fontSize: "1.5rem", margin: 0 }}>{title}</h2>
-        <p style={{ color: "white", fontSize: "1.1rem", marginTop: "0.3rem" }}>{subtitle}</p>
-      </div>
-    </Link>
-  );
-}
-
-/* --- Arrow Component --- */
-function Arrow({ color }) {
-  return (
-    <div style={{ fontSize: "2rem", color, textAlign: "center" }}>⬇️</div>
+    </main>
   );
 }
