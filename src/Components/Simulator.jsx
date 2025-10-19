@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Chart as ChartJS,
   LineElement,
@@ -9,6 +9,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import Particles from "react-tsparticles";
 
 ChartJS.register(
   LineElement,
@@ -23,6 +24,7 @@ export default function Simulator() {
   const [pulp, setPulp] = useState(5);
   const [pH, setPH] = useState(3);
   const [time, setTime] = useState(24);
+  const [hoveredTooltip, setHoveredTooltip] = useState(null);
 
   // Computation logic
   const recovery = Math.max(
@@ -47,8 +49,12 @@ export default function Simulator() {
         borderWidth: 3,
         tension: 0.3,
         fill: true,
-        pointRadius: 5,
-        pointBackgroundColor: "#10B981",
+        pointRadius: 6,
+        pointBackgroundColor: "#00ffff",
+        pointBorderColor: "#00ffff",
+        pointHoverRadius: 8,
+        pointHoverBackgroundColor: "#00ffff",
+        pointHoverBorderColor: "#00ffff",
       },
     ],
   };
@@ -70,27 +76,48 @@ export default function Simulator() {
     },
   };
 
+  // Glow animation on slider move
+  useEffect(() => {
+    const canvas = document.querySelector("canvas");
+    if (canvas) {
+      canvas.classList.add("glow-flash");
+      setTimeout(() => canvas.classList.remove("glow-flash"), 600);
+    }
+  }, [pulp, pH, time]);
+
+  // Tooltip text
+  const tooltips = {
+    pulp: "Solid–liquid ratio in leaching.",
+    ph: "Acidic strength influencing REE solubility.",
+    time: "Duration of bioleaching reaction.",
+  };
+
   return (
     <section
-      id="tech"
-      style={{
-        padding: "3rem 1rem",
-        color: "white",
-        background: "rgba(255,255,255,0.02)",
-        borderRadius: "2rem",
-        boxShadow: "0 0 30px rgba(0,224,255,0.08)",
-        maxWidth: "1100px",
-        margin: "4rem auto",
-      }}
-    >
+  id="tech"
+  style={{
+    padding: "4rem 2rem",
+    color: "white",
+    background: "rgba(255,255,255,0.02)",
+    borderRadius: "2rem",
+    boxShadow: "0 0 40px rgba(0,224,255,0.08)",
+    maxWidth: "1200px",
+    margin: "5rem auto",
+    textAlign: "center",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  }}
+>
+
       <h2
         style={{
           fontSize: "2rem",
           fontWeight: "700",
           textAlign: "center",
           marginBottom: "1.5rem",
-          background:
-            "linear-gradient(90deg,#34d399,#22d3ee,#818cf8)",
+          background: "linear-gradient(90deg,#34d399,#22d3ee,#818cf8)",
           WebkitBackgroundClip: "text",
           color: "transparent",
         }}
@@ -99,13 +126,18 @@ export default function Simulator() {
       </h2>
 
       <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "2rem",
-          alignItems: "center",
-        }}
-      >
+  style={{
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "2rem",
+    alignItems: "center",
+    justifyContent: "center",
+    placeItems: "center",
+    maxWidth: "1000px",
+  }}
+>
+
+
         {/* Controls */}
         <div>
           <h4 style={{ fontWeight: "600", fontSize: "1.2rem" }}>
@@ -113,47 +145,85 @@ export default function Simulator() {
           </h4>
 
           <div style={{ marginTop: "1rem", lineHeight: "2.2rem" }}>
-            <label>
-              🧪 Pulp Density: {pulp}% <br />
-              <input
-                type="range"
-                min="1"
-                max="20"
-                value={pulp}
-                onChange={(e) => setPulp(+e.target.value)}
-                className="w-full accent-emerald-400"
-              />
-            </label>
-            <br />
+            {/* Pulp Density */}
+            <div className="slider-label">
+              🧪 <b>Pulp Density:</b> {pulp}%{" "}
+              <div
+                className="tooltip-wrapper"
+                onMouseEnter={() => setHoveredTooltip("pulp")}
+                onMouseLeave={() => setHoveredTooltip(null)}
+              >
+                <span className="tooltip-icon text-emerald-400">ⓘ</span>
+                {hoveredTooltip === "pulp" && (
+                  <div className="tooltip-box tooltip-visible">
+                    {tooltips.pulp}
+                  </div>
+                )}
+              </div>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="20"
+              value={pulp}
+              onChange={(e) => setPulp(+e.target.value)}
+              className="w-full accent-emerald-400"
+            />
 
-            <label>
-              ⚗️ pH: {pH.toFixed(1)} <br />
-              <input
-                type="range"
-                min="1"
-                max="6"
-                step="0.1"
-                value={pH}
-                onChange={(e) => setPH(+e.target.value)}
-                className="w-full accent-cyan-400"
-              />
-            </label>
-            <br />
+            {/* pH */}
+            <div className="slider-label">
+              ⚗️ <b>pH:</b> {pH.toFixed(1)}{" "}
+              <div
+                className="tooltip-wrapper"
+                onMouseEnter={() => setHoveredTooltip("ph")}
+                onMouseLeave={() => setHoveredTooltip(null)}
+              >
+                <span className="tooltip-icon text-cyan-400">ⓘ</span>
+                {hoveredTooltip === "ph" && (
+                  <div className="tooltip-box tooltip-visible">
+                    {tooltips.ph}
+                  </div>
+                )}
+              </div>
+            </div>
+            <input
+              type="range"
+              min="1"
+              max="6"
+              step="0.1"
+              value={pH}
+              onChange={(e) => setPH(+e.target.value)}
+              className="w-full accent-cyan-400"
+            />
 
-            <label>
-              ⏱️ Time: {time} h <br />
-              <input
-                type="range"
-                min="6"
-                max="48"
-                step="6"
-                value={time}
-                onChange={(e) => setTime(+e.target.value)}
-                className="w-full accent-indigo-400"
-              />
-            </label>
+            {/* Time */}
+            <div className="slider-label">
+              ⏱️ <b>Time:</b> {time} h{" "}
+              <div
+                className="tooltip-wrapper"
+                onMouseEnter={() => setHoveredTooltip("time")}
+                onMouseLeave={() => setHoveredTooltip(null)}
+              >
+                <span className="tooltip-icon text-indigo-400">ⓘ</span>
+                {hoveredTooltip === "time" && (
+                  <div className="tooltip-box tooltip-visible">
+                    {tooltips.time}
+                  </div>
+                )}
+              </div>
+            </div>
+            <input
+              type="range"
+              min="6"
+              max="48"
+              step="6"
+              value={time}
+              onChange={(e) => setTime(+e.target.value)}
+              className="w-full accent-indigo-400"
+            />
           </div>
 
+          {/* KPI Boxes */}
           <div
             style={{
               display: "grid",
@@ -163,20 +233,8 @@ export default function Simulator() {
               textAlign: "center",
             }}
           >
-            <div
-              style={{
-                background: "rgba(255,255,255,0.05)",
-                borderRadius: "1rem",
-                padding: "1rem",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: "700",
-                  color: "#00ffcc",
-                }}
-              >
+            <div className="kpi-card">
+              <div className="kpi-value" style={{ color: "#00ffcc" }}>
                 {recovery}%
               </div>
               <p style={{ fontSize: "0.9rem", opacity: 0.7 }}>
@@ -184,20 +242,8 @@ export default function Simulator() {
               </p>
             </div>
 
-            <div
-              style={{
-                background: "rgba(255,255,255,0.05)",
-                borderRadius: "1rem",
-                padding: "1rem",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "2rem",
-                  fontWeight: "700",
-                  color: "#4b6fff",
-                }}
-              >
+            <div className="kpi-card">
+              <div className="kpi-value" style={{ color: "#4b6fff" }}>
                 {acidUse}
               </div>
               <p style={{ fontSize: "0.9rem", opacity: 0.7 }}>
@@ -207,10 +253,137 @@ export default function Simulator() {
           </div>
         </div>
 
-        {/* Chart */}
-        <div>
-          <Line data={chartData} options={chartOptions} />
-        </div>
+      {/* Chart */}
+<div
+  className="chart-container"
+  style={{
+    width: "100%",
+    maxWidth: "480px", // match width of parameter block
+    height: "400px",   // adjust height for balance
+    margin: "0 auto",  // centers it neatly
+  }}
+>
+  {/* Particle Background Behind Insights */}
+<div style={{ position: "relative", marginTop: "2rem" }}>
+  <div
+    style={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "200px",
+      zIndex: 0,
+      opacity: 0.5,
+    }}
+  >
+    {/* Animated microbial/particle effect */}
+    <Particles
+      id="bioParticles"
+      options={{
+        fpsLimit: 60,
+        particles: {
+          number: { value: 25, density: { enable: true, value_area: 800 } },
+          color: { value: ["#22d3ee", "#34d399", "#818cf8"] },
+          shape: { type: "circle" },
+          opacity: { value: 0.4 },
+          size: { value: { min: 2, max: 5 } },
+          move: {
+            enable: true,
+            speed: 1.2,
+            direction: "none",
+            outModes: "bounce",
+          },
+        },
+        interactivity: {
+          events: {
+            onHover: { enable: true, mode: "repulse" },
+            resize: true,
+          },
+          modes: { repulse: { distance: 80 } },
+        },
+        detectRetina: true,
+      }}
+    />
+  </div>
+
+  {/* Insight Cards */}
+  <div
+    style={{
+      position: "relative",
+      zIndex: 1,
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: "1.2rem",
+      marginTop: "1rem",
+    }}
+  >
+    <div
+      className="insight-card"
+      style={{
+        background: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(0,255,200,0.2)",
+        borderRadius: "1rem",
+        padding: "0.3rem 0.7rem",
+        textAlign: "center",
+        transition: "all 0.3s ease",
+        width: "200px",
+        fontSize: "0.65rem",
+        boxShadow:
+          pH < 3
+            ? "0 0 15px rgba(56,189,248,0.6)"
+            : "0 0 10px rgba(56,189,248,0.1)",
+      }}
+    >
+      <h4
+        style={{
+          fontSize: "1rem",
+          color: "#22d3ee",
+          fontWeight: 600,
+          marginBottom: "0.5rem",
+        }}
+      >
+        🧪 Acid Strength Insight
+      </h4>
+      <p style={{ color: "#aaa", fontSize: "0.9rem", lineHeight: "1.4rem" }}>
+        Lower pH enhances REE solubilization but increases acid consumption.
+      </p>
+    </div>
+
+    <div
+      className="insight-card"
+      style={{
+        background: "rgba(255,255,255,0.05)",
+        border: "1px solid rgba(129,140,248,0.2)",
+        borderRadius: "1rem",
+        padding: "0.3rem 0.7rem",
+        textAlign: "center",
+        transition: "all 0.3s ease",
+         width: "200px",
+        fontSize: "0.65rem",
+        boxShadow:
+          pulp > 10
+            ? "0 0 15px rgba(129,140,248,0.6)"
+            : "0 0 10px rgba(129,140,248,0.1)",
+      }}
+    >
+      <h4
+        style={{
+          fontSize: "1rem",
+          color: "#818cf8",
+          fontWeight: 600,
+          marginBottom: "0.5rem",
+        }}
+      >
+        ⚙️ Pulp Density Insight
+      </h4>
+      <p style={{ color: "#aaa", fontSize: "0.9rem", lineHeight: "1.4rem" }}>
+        Higher pulp density reduces acid use but limits REE diffusion and yield.
+      </p>
+    </div>
+  </div>
+</div>
+  <Line data={chartData} options={chartOptions} />
+</div>
       </div>
     </section>
   );

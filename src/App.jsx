@@ -43,7 +43,7 @@ export default function App() {
       <Pipeline />
 
       {/* Simulator Section */}
-      <section id="tech" className="py-14 relative z-10">
+      <section id="tech" className="py-14 relative z-10 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl sm:text-4xl font-bold mb-6">Interactive technology sandbox</h2>
           <Simulator />

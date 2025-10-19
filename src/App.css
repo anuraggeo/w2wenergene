@@ -31,3 +31,62 @@
 .animate-flowLine {
   animation: flowLine 3s linear infinite;
 }
+/* Glow animation */
+.glow-flash {
+  animation: chartGlow 0.6s ease-in-out;
+}
+@keyframes chartGlow {
+  0% { filter: drop-shadow(0 0 0px rgba(0,255,255,0)); }
+  50% { filter: drop-shadow(0 0 15px rgba(0,255,255,0.8)); }
+  100% { filter: drop-shadow(0 0 0px rgba(0,255,255,0)); }
+}
+
+/* Tooltip setup */
+.tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-icon {
+  cursor: pointer;
+  margin-left: 6px;
+  font-size: 0.9rem;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.tooltip-box {
+  position: absolute;
+  left: 1.5rem;
+  top: -2.2rem;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: #fff;
+  padding: 0.5rem 0.7rem;
+  border-radius: 0.5rem;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(5px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  z-index: 50;
+}
+
+.tooltip-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.kpi-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.kpi-value {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
