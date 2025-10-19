@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Contact from "./Components/Contact.jsx";
 
 import App from "./App.jsx";
 import Updates from "./Pages/Updates";
@@ -26,6 +27,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/step2" element={<Step2 />} />
         <Route path="/step3" element={<Step3 />} />
         <Route path="/step4" element={<Step4 />} />
+
+        <Route path="/contact" element={<Contact />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>

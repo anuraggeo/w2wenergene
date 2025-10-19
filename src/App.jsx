@@ -3,6 +3,9 @@ import Hero from "./Components/Hero";
 import KPIs from "./Components/KPIs";
 import Pipeline from "./Components/Pipeline";
 import Simulator from "./Components/Simulator";
+import Contact from "./Components/Contact.jsx";
+
+import { Link } from "react-router-dom";
 
 export default function App() {
   return (
@@ -49,43 +52,8 @@ export default function App() {
           <Simulator />
         </div>
       </section>
-      <section id="contact" className="py-14">
-  <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-10 items-start px-6">
-    <div>
-      <h2 className="text-3xl sm:text-4xl font-bold mb-3">Let’s collaborate</h2>
-      <p className="text-neutral-300/90 mb-5">
-        Looking to valorize ash dumps, reduce liabilities, or co-develop bio-extraction and mineral carbonation IP?
-      </p>
-      <p className="text-sm opacity-80">✉️ <a href="mailto:contact@w2wenergene.com" className="underline decoration-brand1/40 underline-offset-2">contact@w2wenergene.com</a></p>
-      <p className="text-sm opacity-80">☎️ +91-9511444574</p>
-      <p className="text-sm opacity-80">📍 IIT Bombay, Mumbai</p>
-    </div>
+      <Contact />
 
-    <form name="contact" method="POST" data-netlify="true" className="rounded-3xl card p-6 space-y-4">
-      <input type="hidden" name="form-name" value="contact" />
-      <div>
-        <label className="text-sm opacity-80">Name</label>
-        <input name="name" required className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"/>
-      </div>
-      <div>
-        <label className="text-sm opacity-80">Email</label>
-        <input name="email" type="email" required className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"/>
-      </div>
-      <div>
-        <label className="text-sm opacity-80">Organization</label>
-        <input name="org" className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"/>
-      </div>
-      <div>
-        <label className="text-sm opacity-80">Message</label>
-        <textarea name="message" rows="4" className="mt-1 w-full rounded-xl bg-neutral-800 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"></textarea>
-      </div>
-      <button type="submit" className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg">
-        Send message →
-      </button>
-      <p className="text-xs opacity-60">This form is processed by W2W EnerGene.</p>
-    </form>
-  </div>
-</section>
       {/* Footer */}
       <footer className="border-t border-white/5">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
@@ -97,7 +65,7 @@ export default function App() {
             <a href="/#tech">Technology</a>
             <a href="/#impact">Impact</a>
             <a href="/#roadmap">Roadmap</a>
-            <a href="/#contact">Contact</a>
+           <Link to="/contact">Contact</Link>
             <a href="/updates.html">Updates</a>
           </div>
           <div className="opacity-60">
