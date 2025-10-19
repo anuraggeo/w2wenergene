@@ -15,7 +15,7 @@ export default function Pipeline() {
         {/* 🔹 Steps Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
           
-          <a href="/step1.html"
+          <a href="/step1"
              className="group card rounded-2xl p-6 bg-gradient-to-br from-brand1/10 to-brand2/10 hover:from-brand1/20 hover:to-brand2/20 transition-all duration-300 transform hover:-translate-y-2">
             <h3 className="text-xl font-semibold mb-2 text-brand1">STEP 1</h3>
             <p className="font-bold text-white mb-3">Pretreatment & Activation</p>
@@ -23,7 +23,7 @@ export default function Pipeline() {
             <ArrowRight className="mt-4 mx-auto opacity-60 group-hover:opacity-100 transition" />
           </a>
 
-          <a href="/step2.html"
+          <a href="/step2"
              className="group card rounded-2xl p-6 bg-gradient-to-br from-brand2/10 to-brand3/10 hover:from-brand2/20 hover:to-brand3/20 transition-all duration-300 transform hover:-translate-y-2">
             <h3 className="text-xl font-semibold mb-2 text-brand2">STEP 2</h3>
             <p className="font-bold text-white mb-3">Bioleaching</p>
@@ -31,7 +31,7 @@ export default function Pipeline() {
             <ArrowRight className="mt-4 mx-auto opacity-60 group-hover:opacity-100 transition" />
           </a>
 
-          <a href="/step3.html"
+          <a href="/step3"
              className="group card rounded-2xl p-6 bg-gradient-to-br from-brand3/10 to-brand1/10 hover:from-brand3/20 hover:to-brand1/20 transition-all duration-300 transform hover:-translate-y-2">
             <h3 className="text-xl font-semibold mb-2 text-brand3">STEP 3</h3>
             <p className="font-bold text-white mb-3">Precipitation</p>
@@ -39,7 +39,7 @@ export default function Pipeline() {
             <ArrowRight className="mt-4 mx-auto opacity-60 group-hover:opacity-100 transition" />
           </a>
 
-          <a href="/step4.html"
+          <a href="/step4"
              className="group card rounded-2xl p-6 bg-gradient-to-br from-emerald-400/10 to-cyan-400/10 hover:from-emerald-400/20 hover:to-cyan-400/20 transition-all duration-300 transform hover:-translate-y-2">
             <h3 className="text-xl font-semibold mb-2 text-emerald-400">STEP 4</h3>
             <p className="font-bold text-white mb-3">CO₂ Sequestration</p>
