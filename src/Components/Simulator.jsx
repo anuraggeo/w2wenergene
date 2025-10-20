@@ -125,7 +125,7 @@ export default function Simulator() {
         ⚙️ Bioleaching Simulator
       </h2>
 
-      <div
+     <div
   style={{
     display: "grid",
     gridTemplateColumns: "1fr 1fr",
@@ -134,8 +134,30 @@ export default function Simulator() {
     justifyContent: "center",
     placeItems: "center",
     maxWidth: "1000px",
+    overflowX: "auto",            // 👈 allows mobile to scroll if needed
+    WebkitOverflowScrolling: "touch", // 👈 smooth scrolling on iPhones
+    scrollbarWidth: "none",       // 👈 hides scrollbar in Firefox
   }}
+  className="hide-scrollbar"
 >
+  <style>
+    {`
+      /* 👇 hides scrollbar in Chrome/Safari/Edge */
+      .hide-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      /* 👇 prevents extra space when zoomed */
+      @media (max-width: 768px) {
+        #tech {
+          overflow-x: hidden;
+        }
+        .chart-container {
+          width: 95vw !important;
+        }
+      }
+    `}
+  </style>
+
 
 
         {/* Controls */}
