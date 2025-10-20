@@ -414,50 +414,50 @@ export default function Simulator() {
   <Line data={chartData} options={chartOptions} />
 </div>
       </div>
-      <style>
-  {`
+     {/* ✅ Force Mobile Fix Styles to Apply */}
+{typeof window !== "undefined" && (
+  <style>{`
     @media (max-width: 768px) {
-      /* 📈 Bigger graph for mobile */
-      .chart-container {
-        max-width: 100% !important;
-        width: 95vw !important;
-        height: 420px !important; /* increase graph height */
-        margin-top: 1rem !important;
-      }
-
-      /* 📉 Smaller insight boxes */
-      .insight-card {
-        width: 150px !important;
-        padding: 0.2rem 0.4rem !important;
-        font-size: 0.55rem !important;
-      }
-
-      .insight-card h4 {
-        font-size: 0.8rem !important;
-        margin-bottom: 0.3rem !important;
-      }
-
-      .insight-card p {
-        font-size: 0.7rem !important;
-        line-height: 1.1rem !important;
-      }
-
-      /* Stack insights tighter under chart */
-      .insight-card + .insight-card {
-        margin-top: 0.4rem !important;
-      }
-
-      /* Optional: Center everything better on mobile */
       .simulator-grid {
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
         text-align: center !important;
+        gap: 1rem !important;
+        overflow-x: hidden !important;
+      }
+
+      .chart-container {
+        max-width: 100% !important;
+        width: 95vw !important;
+        height: 420px !important;
+        margin: 1rem auto !important;
+      }
+
+      .insight-card {
+        width: 140px !important;
+        padding: 0.25rem 0.4rem !important;
+        font-size: 0.55rem !important;
+        margin: 0.3rem auto !important;
+      }
+
+      .insight-card h4 {
+        font-size: 0.75rem !important;
+        margin-bottom: 0.2rem !important;
+      }
+
+      .insight-card p {
+        font-size: 0.7rem !important;
+        line-height: 1rem !important;
+      }
+
+      html, body {
+        overflow-x: hidden !important;
       }
     }
-  `}
-</style>
+  `}</style>
+)}
     </section>
   );
 }
