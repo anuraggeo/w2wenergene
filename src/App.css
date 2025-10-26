@@ -1,5 +1,8 @@
-:root { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, sans-serif; }
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, Noto Sans, sans-serif;
+}
 
+/* =============== CORE THEME =============== */
 .grad-text {
   background: linear-gradient(90deg,#34d399,#22d3ee,#818cf8);
   -webkit-background-clip: text;
@@ -7,46 +10,50 @@
   color: transparent;
 }
 
-.glass { background: rgba(17,24,39,.6); backdrop-filter: blur(8px); }
+.glass {
+  background: rgba(17,24,39,.6);
+  backdrop-filter: blur(8px);
+}
 
-.card { background: rgba(17,24,39,.6); border: 1px solid rgba(255,255,255,.08); }
+.card {
+  background: rgba(17,24,39,.6);
+  border: 1px solid rgba(255,255,255,.08);
+}
 
 .grid-bg {
-  position: absolute; inset: 0; opacity: .04; pointer-events: none;
-  background-image: linear-gradient(to right, rgba(255,255,255,.6) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255,255,255,.6) 1px, transparent 1px);
+  position: absolute;
+  inset: 0;
+  opacity: .04;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.6) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.6) 1px, transparent 1px);
   background-size: 32px 32px;
 }
+
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 20px rgba(0, 255, 200, 0.15);
+  box-shadow: 0 0 20px rgba(0,255,200,0.15);
   transition: all 0.3s ease;
 }
+
+/* =============== ANIMATIONS =============== */
 @keyframes flowLine {
   0% { opacity: 0.3; filter: drop-shadow(0 0 2px #00d084); }
   50% { opacity: 0.8; filter: drop-shadow(0 0 10px #00bcd4); }
   100% { opacity: 0.3; filter: drop-shadow(0 0 2px #667eea); }
 }
+.animate-flowLine { animation: flowLine 3s linear infinite; }
 
-.animate-flowLine {
-  animation: flowLine 3s linear infinite;
-}
-/* Glow animation */
-.glow-flash {
-  animation: chartGlow 0.6s ease-in-out;
-}
+.glow-flash { animation: chartGlow 0.6s ease-in-out; }
 @keyframes chartGlow {
   0% { filter: drop-shadow(0 0 0px rgba(0,255,255,0)); }
   50% { filter: drop-shadow(0 0 15px rgba(0,255,255,0.8)); }
   100% { filter: drop-shadow(0 0 0px rgba(0,255,255,0)); }
 }
 
-/* Tooltip setup */
-.tooltip-wrapper {
-  position: relative;
-  display: inline-block;
-}
-
+/* =============== TOOLTIP STYLES =============== */
+.tooltip-wrapper { position: relative; display: inline-block; }
 .tooltip-icon {
   cursor: pointer;
   margin-left: 6px;
@@ -54,7 +61,6 @@
   user-select: none;
   transition: color 0.3s ease;
 }
-
 .tooltip-box {
   position: absolute;
   left: 1.5rem;
@@ -69,27 +75,50 @@
   pointer-events: none;
   transform: translateY(5px);
   transition: opacity 0.2s ease, transform 0.2s ease;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0,255,255,0.3);
   z-index: 50;
 }
-
 .tooltip-visible {
   opacity: 1;
   pointer-events: auto;
   transform: translateY(0);
 }
 
+/* =============== KPI CARDS =============== */
 .kpi-card {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 1rem;
   padding: 1rem;
 }
-
 .kpi-value {
   font-size: 2rem;
   font-weight: 700;
 }
-/* === Mobile Responsive Fix for Simulator === */
+
+/* ============================================
+   DESKTOP: Bioleaching Simulator Layout
+   ============================================ */
+.simulator-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  place-items: center;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 480px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+/* ============================================
+   MOBILE: Responsive Fix (≤768px)
+   ============================================ */
 @media (max-width: 768px) {
   .simulator-grid {
     display: flex !important;
@@ -97,32 +126,36 @@
     align-items: center !important;
     justify-content: center !important;
     text-align: center !important;
-    gap: 1rem !important;
+    gap: 1.5rem !important;
+    padding-inline: 1rem !important;
     overflow-x: hidden !important;
   }
 
   .chart-container {
-    max-width: 100% !important;
     width: 95vw !important;
-    height: 420px !important;
+    height: 430px !important;
     margin: 1rem auto !important;
   }
 
   .insight-card {
-    width: 150px !important;
-    padding: 0.3rem 0.4rem !important;
-    font-size: 0.6rem !important;
-    margin: 0.3rem auto !important;
+    width: 100px !important;
+    padding: 0.2rem 0.3rem !important;
+    font-size: 0.55rem !important;
+    margin: 0.3rem !important;
   }
 
   .insight-card h4 {
-    font-size: 0.8rem !important;
+    font-size: 0.75rem !important;
     margin-bottom: 0.2rem !important;
   }
 
   .insight-card p {
-    font-size: 0.7rem !important;
+    font-size: 0.65rem !important;
     line-height: 1rem !important;
+  }
+
+  .slider-label b {
+    font-size: 0.9rem !important;
   }
 
   html, body {
@@ -130,3 +163,21 @@
   }
 }
 
+/* ============================================
+   TABLET: (769px–1024px)
+   ============================================ */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .simulator-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .chart-container {
+    max-width: 520px !important;
+    height: 420px !important;
+  }
+
+  .insight-card {
+    width: 160px;
+  }
+}
