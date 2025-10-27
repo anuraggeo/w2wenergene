@@ -4,6 +4,8 @@ import KPIs from "./Components/KPIs";
 import Pipeline from "./Components/Pipeline";
 import Simulator from "./Components/Simulator";
 import Contact from "./Components/Contact.jsx";
+import Roadmap from "./Components/Roadmap";
+
 
 import { Link } from "react-router-dom";
 
@@ -52,6 +54,7 @@ export default function App() {
           <Simulator />
         </div>
       </section>
+      <Roadmap /> 
       <Contact />
 
       {/* Footer */}
