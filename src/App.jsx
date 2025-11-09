@@ -18,7 +18,7 @@ export default function App() {
       <header className="sticky top-0 z-40 glass border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/logo.png" alt="W2W EnerGene" className="h-8 w-auto" />
+            <img src="/Images/logo.png" alt="W2W EnerGene logo" className="h-8 w-auto" />
             <a className="font-extrabold tracking-tight text-xl">
               W2W <span className="text-brand1">Ener</span>
               <span className="text-brand3">Gene</span>
