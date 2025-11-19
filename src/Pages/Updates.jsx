@@ -1,17 +1,13 @@
+// src/Components/Updates.jsx
 import React, { useEffect, useMemo, useState } from "react";
 
-/**
- * Updates page (React)
- * - Restores previous dark theme + card look
- * - Uses the global .card and .grid-bg styles (see CSS patch below)
- * - Expects posts.json in /public
- */
 export default function Updates() {
   const [allPosts, setAllPosts] = useState([]);
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState("newest");
   const [activeTags, setActiveTags] = useState(new Set());
 
+  // Load posts.json from /public
   useEffect(() => {
     fetch("/posts.json")
       .then((r) => r.json())
@@ -19,20 +15,26 @@ export default function Updates() {
       .catch(() => setAllPosts([]));
   }, []);
 
-  // brand “chip” colors to make tags colorful (brand1, brand2, brand3 rotate)
-  const tagColor = (idx) => {
-    const i = idx % 3;
-    if (i === 0) return "bg-brand1/10 border border-brand1/30 text-brand1";
-    if (i === 1) return "bg-brand2/10 border border-brand2/30 text-brand2";
-    return "bg-brand3/10 border border-brand3/30 text-brand3";
-  };
-
+  // All unique tags
   const allTags = useMemo(() => {
-    const s = new Set();
-    for (const p of allPosts) (p.tags || []).forEach((t) => s.add(t));
-    return Array.from(s).sort((a, b) => a.localeCompare(b));
+    const t = new Set();
+    for (const p of allPosts) {
+      (p.tags || []).forEach((x) => t.add(x));
+    }
+    return Array.from(t).sort((a, b) => a.localeCompare(b));
   }, [allPosts]);
 
+  // Helper: cycle some nice colours for tag pills
+  const tagColorClass = (index) => {
+    const palette = [
+      "bg-emerald-500/15 text-emerald-200 border-emerald-400/40",
+      "bg-cyan-500/15 text-cyan-200 border-cyan-400/40",
+      "bg-indigo-500/15 text-indigo-200 border-indigo-400/40",
+    ];
+    return palette[index % palette.length];
+  };
+
+  // Filter + sort posts
   const filtered = useMemo(() => {
     let out = [...allPosts];
 
@@ -69,42 +71,85 @@ export default function Updates() {
   const clearTags = () => setActiveTags(new Set());
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 relative updates-root">
-      {/* grid background like your original site */}
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 relative">
+      {/* Grid background */}
       <div className="grid-bg" />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 relative z-10">
+      {/* HEADER – same style as home page */}
+      <header className="sticky top-0 z-40 glass border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            {/* logo from /public/Images/logo.png */}
+            <img
+              src="/Images/logo.png"
+              alt="W2W EnerGene"
+              className="h-8 w-auto"
+            />
+            <a href="/" className="font-extrabold tracking-tight text-xl">
+              W2W <span className="text-brand1">Ener</span>
+              <span className="text-brand3">Gene</span>
+            </a>
+          </div>
+
+          <nav className="hidden md:flex items-center gap-6 text-sm opacity-90">
+            <a href="/#tech" className="hover:opacity-100 opacity-80">
+              Technology
+            </a>
+            <a href="/#impact" className="hover:opacity-100 opacity-80">
+              Impact
+            </a>
+            <a href="/#roadmap" className="hover:opacity-100 opacity-80">
+              Roadmap
+            </a>
+            <a href="/#contact" className="hover:opacity-100 opacity-80">
+              Contact
+            </a>
+            <a href="/updates" className="hover:opacity-100 opacity-80">
+              Updates
+            </a>
+          </nav>
+
+          <a
+            href="/#contact"
+            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg"
+          >
+            Get early access →
+          </a>
+        </div>
+      </header>
+
+      {/* MAIN CONTENT */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-6">
           Updates
         </h1>
 
         <div className="grid md:grid-cols-[1fr,280px] gap-8">
-          {/* Left column */}
+          {/* LEFT: search/sort + posts */}
           <section>
-            {/* Search + sort */}
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-4">
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search updates…"
-                className="w-full sm:w-96 rounded-xl bg-neutral-800/90 text-neutral-100 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"
+                className="w-full sm:w-96 rounded-xl bg-neutral-800/80 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1"
               />
+
               <select
                 value={sort}
                 onChange={(e) => setSort(e.target.value)}
-                className="rounded-xl bg-neutral-800/90 text-neutral-100 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1 w-full sm:w-auto"
+                className="rounded-xl bg-neutral-800/80 px-3 py-2 outline-none focus:ring-2 focus:ring-brand1 w-full sm:w-auto"
               >
                 <option value="newest">Newest first</option>
                 <option value="oldest">Oldest first</option>
               </select>
             </div>
 
-            {/* Posts */}
             <div className="space-y-4">
-              {filtered.map((p, i) => (
+              {filtered.map((p, idxPost) => (
                 <article
-                  key={p.id ?? i}
-                  className="rounded-2xl card p-5 hover:bg-white/5 transition-colors border border-white/10"
+                  key={p.id}
+                  className="rounded-2xl card border border-white/10 p-5 hover:bg-white/5 transition-colors shadow-lg shadow-cyan-500/10"
                 >
                   <div className="flex items-center justify-between gap-4 flex-wrap">
                     <a
@@ -114,7 +159,9 @@ export default function Updates() {
                       {p.title}
                     </a>
                     <time className="text-sm opacity-70">
-                      {p.date ? new Date(p.date).toLocaleDateString() : "—"}
+                      {p.date
+                        ? new Date(p.date).toLocaleDateString()
+                        : "—"}
                     </time>
                   </div>
 
@@ -123,21 +170,21 @@ export default function Updates() {
                   )}
 
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {(p.tags || []).map((t, ti) => {
-                      const on = activeTags.has(t);
-                      return (
-                        <button
-                          key={`${t}-${ti}`}
-                          onClick={() => toggleTag(t)}
-                          className={`px-3 py-1 rounded-full text-xs transition-colors
-                            ${on ? "ring-1 ring-white/40" : ""}
-                            ${tagColor(ti)}
-                          `}
-                        >
-                          {t}
-                        </button>
-                      );
-                    })}
+                    {(p.tags || []).map((t, i) => (
+                      <button
+                        key={`${p.id}-${t}`}
+                        onClick={() => toggleTag(t)}
+                        className={`px-3 py-1 rounded-full text-xs border ${tagColorClass(
+                          i
+                        )} ${
+                          activeTags.has(t)
+                            ? "ring-1 ring-brand3/60"
+                            : "hover:brightness-110"
+                        }`}
+                      >
+                        {t}
+                      </button>
+                    ))}
                   </div>
                 </article>
               ))}
@@ -150,30 +197,33 @@ export default function Updates() {
             </div>
           </section>
 
-          {/* Right column: Tags + RSS */}
-          <aside className="space-y-4">
+          {/* RIGHT: Tags + RSS */}
+          <aside>
             <div className="rounded-2xl card p-4 border border-white/10">
               <h2 className="font-semibold mb-2">Tags</h2>
+
               <div className="flex flex-wrap gap-2">
                 {allTags.length === 0 && (
                   <div className="text-sm opacity-70">No tags yet</div>
                 )}
-                {allTags.map((t, ti) => {
-                  const on = activeTags.has(t);
-                  return (
-                    <button
-                      key={t}
-                      onClick={() => toggleTag(t)}
-                      className={`px-3 py-1 rounded-full text-sm transition-colors
-                        ${on ? "ring-1 ring-white/40" : ""}
-                        ${tagColor(ti)}
-                      `}
-                    >
-                      {t}
-                    </button>
-                  );
-                })}
+
+                {allTags.map((t, i) => (
+                  <button
+                    key={t}
+                    onClick={() => toggleTag(t)}
+                    className={`px-3 py-1 rounded-full text-sm border ${tagColorClass(
+                      i
+                    )} ${
+                      activeTags.has(t)
+                        ? "ring-1 ring-brand3/60"
+                        : "bg-neutral-800/80 hover:bg-neutral-700"
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
               </div>
+
               <button
                 onClick={clearTags}
                 className="mt-3 text-sm opacity-80 underline hover:opacity-100"
@@ -182,7 +232,7 @@ export default function Updates() {
               </button>
             </div>
 
-            <div className="rounded-2xl card p-4 border border-white/10">
+            <div className="rounded-2xl card p-4 mt-4 border border-white/10">
               <h2 className="font-semibold mb-2">RSS</h2>
               <p className="text-sm opacity-80">
                 Subscribe via{" "}
@@ -194,6 +244,26 @@ export default function Updates() {
           </aside>
         </div>
       </main>
+
+      {/* FOOTER – same as home page */}
+      <footer className="border-t border-white/5">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
+          <div className="flex items-center gap-2">
+            <div className="h-7 w-7 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3" />
+            <div className="font-bold">W2W EnerGene</div>
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="/#tech">Technology</a>
+            <a href="/#impact">Impact</a>
+            <a href="/#roadmap">Roadmap</a>
+            <a href="/#contact">Contact</a>
+            <a href="/updates">Updates</a>
+          </div>
+          <div className="opacity-60">
+            © {new Date().getFullYear()} W2W EnerGene. All rights reserved.
+          </div>
+        </section>
+      </footer>
     </div>
   );
 }
