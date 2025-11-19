@@ -5,6 +5,7 @@ import Pipeline from "./Components/Pipeline";
 import Simulator from "./Components/Simulator";
 import Contact from "./Components/Contact.jsx";
 import Roadmap from "./Components/Roadmap";
+import People from "./Components/People";
 
 
 import { Link } from "react-router-dom";
@@ -28,6 +29,7 @@ export default function App() {
             <a href="/#tech">Technology</a>
             <a href="/#impact">Impact</a>
             <a href="/#roadmap">Roadmap</a>
+             <a href="/#People">People</a>
             <a href="/#contact">Contact</a>
             <a href="/updates" className="hover:opacity-100 opacity-80">Updates</a>
           </nav>
@@ -68,6 +70,7 @@ export default function App() {
             <a href="/#tech">Technology</a>
             <a href="/#impact">Impact</a>
             <a href="/#roadmap">Roadmap</a>
+            <a href="/#People">People</a>
            <Link to="/contact">Contact</Link>
             <a href="/updates.html">Updates</a>
           </div>
