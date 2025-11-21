@@ -3,15 +3,6 @@ import React from "react";
 export default function People() {
   const team = [
     {
-      name: "Anurag Singh",
-      role: "PhD Research Scholar",
-      affiliation: "MGWI Lab, IIT Bombay",
-      image: "/Images/anurag.jpg", // Add your image here
-      linkedin: "https://linkedin.com/",
-      scholar: "https://scholar.google.com/",
-      email: "mailto:contact@w2wenergene.com",
-    },
-    {
       name: "Prof. George Mathew",
       role: "Professor & PhD Guide",
       affiliation: "Dept. of Earth Sciences, IIT Bombay",
@@ -21,9 +12,18 @@ export default function People() {
       email: "",
     },
     {
-      name: "Prof. XYZ (Co-Guide)",
-      role: "Professor, BSBE",
-      affiliation: "Dept. of Biosciences & Bioengineering, IIT Bombay",
+      name: "Anurag Singh Yadav",
+      role: "PhD Research Scholar",
+      affiliation: "MGWI Lab, IIT Bombay",
+      image: "/Images/anurag.jpg", // Add your image here
+      linkedin: "https://linkedin.com/",
+      scholar: "https://scholar.google.com/",
+      email: "mailto:contact@w2wenergene.com",
+    },
+    {
+      name: "Priya Sonker",
+      role: "PhD Research Scholar",
+      affiliation: "MGWI Lab, IIT Bombay",
       image: "/Images/coguide.jpg",
       linkedin: "",
       scholar: "",

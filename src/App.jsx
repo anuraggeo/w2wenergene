@@ -5,8 +5,6 @@ import Pipeline from "./Components/Pipeline";
 import Simulator from "./Components/Simulator";
 import Contact from "./Components/Contact.jsx";
 import Roadmap from "./Components/Roadmap";
-import People from "./Components/People";
-
 
 import { Link } from "react-router-dom";
 
@@ -19,22 +17,39 @@ export default function App() {
       <header className="sticky top-0 z-40 glass border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <img src="/Images/logo.png" alt="W2W EnerGene logo" className="h-8 w-auto" />
+            <img
+              src="/Images/logo.png"
+              alt="W2W EnerGene logo"
+              className="h-8 w-auto"
+            />
             <a className="font-extrabold tracking-tight text-xl">
               W2W <span className="text-brand1">Ener</span>
               <span className="text-brand3">Gene</span>
             </a>
           </div>
+
           <nav className="hidden md:flex items-center gap-6 text-sm opacity-90">
             <a href="/#tech">Technology</a>
             <a href="/#impact">Impact</a>
             <a href="/#roadmap">Roadmap</a>
-             <a href="/#People">People</a>
+
+            {/* People page route */}
+            <Link to="/people" className="hover:opacity-100 opacity-80">
+              People
+            </Link>
+
             <a href="/#contact">Contact</a>
-            <a href="/updates" className="hover:opacity-100 opacity-80">Updates</a>
+
+            {/* Updates page route */}
+            <Link to="/updates" className="hover:opacity-100 opacity-80">
+              Updates
+            </Link>
           </nav>
-          <a href="/#contact"
-             className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg">
+
+          <a
+            href="/#contact"
+            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg"
+          >
             Get early access →
           </a>
         </div>
@@ -52,11 +67,15 @@ export default function App() {
       {/* Simulator Section */}
       <section id="tech" className="py-14 relative z-10 text-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">Interactive technology sandbox</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+            Interactive technology sandbox
+          </h2>
           <Simulator />
         </div>
       </section>
-      <Roadmap /> 
+
+      {/* Roadmap + Contact */}
+      <Roadmap />
       <Contact />
 
       {/* Footer */}
@@ -66,19 +85,27 @@ export default function App() {
             <div className="h-7 w-7 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3" />
             <div className="font-bold">W2W EnerGene</div>
           </div>
+
           <div className="flex items-center gap-4">
             <a href="/#tech">Technology</a>
             <a href="/#impact">Impact</a>
             <a href="/#roadmap">Roadmap</a>
-            <a href="/#People">People</a>
-           <Link to="/contact">Contact</Link>
-            <a href="/updates.html">Updates</a>
+
+            {/* Route link */}
+            <Link to="/people">People</Link>
+
+            {/* Still a section on this page */}
+            <a href="/#contact">Contact</a>
+
+            {/* Updates React route */}
+            <Link to="/updates">Updates</Link>
           </div>
+
           <div className="opacity-60">
             © {new Date().getFullYear()} W2W EnerGene. All rights reserved.
           </div>
         </section>
-              </footer>
+      </footer>
     </div>
   );
 }

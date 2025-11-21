@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Contact from "./Components/Contact.jsx";
+import People from "./Components/People.jsx";
 
 import App from "./App.jsx";
 import Updates from "./Pages/Updates";
@@ -21,6 +22,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
         {/* Updates Page */}
         <Route path="/updates" element={<Updates />} />
+
+         {/* People page */}
+        <Route path="/people" element={<People />} />
 
         {/* Individual Process Step Pages */}
         <Route path="/step1" element={<Step1 />} />
