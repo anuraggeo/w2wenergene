@@ -82,7 +82,11 @@ export default function App() {
       <footer className="border-t border-white/5">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
           <div className="flex items-center gap-2">
-            <div className="h-7 w-7 rounded-2xl bg-gradient-to-tr from-brand1 via-brand2 to-brand3" />
+            <img
+              src="/Images/logo.png"
+              alt="W2W EnerGene logo"
+              className="h-8 w-auto"
+            />
             <div className="font-bold">W2W EnerGene</div>
           </div>
 
