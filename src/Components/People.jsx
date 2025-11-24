@@ -9,13 +9,23 @@ export default function People() {
   const team = [
     {
       name: "Prof. George Mathew",
-      role: "Professor & PhD Guide",
+      role: "Professor",
       affiliation: "Dept. of Earth Sciences, IIT Bombay",
       image: "/Images/gmathew.png",
       linkedin: "https://linkedin.com/",
       scholar: "https://scholar.google.com/",
       email: "mailto:gmathew@iitb.ac.in",
       bio: "Professor Mathew leads the Mineralogy, Geomicrobiology & Water–Rock Interaction Lab at IIT Bombay, with decades of experience in Mineralogy, Crystallography and Geochemistry.",
+    },
+     {
+      name: "Prof. Kiran Kondabagi;",
+      role: "Professor",
+      affiliation: "BSBE, IIT Bombay",
+      image: "/Images/kk.png",
+      linkedin: "https://linkedin.com/",
+      scholar: "https://scholar.google.com/",
+      email: "mailto:kirankondabagil@iitb.ac.in",
+      bio: "Prof. Kiran Kondabagil’s research focuses on understanding the origin and evolution of viruses, with particular emphasis on the molecular mechanisms that govern DNA replication, repair, and packaging in giant viruses and bacteriophages. His work also spans environmental virology and virus ecology, exploring how viruses interact with and influence natural ecosystems.",
     },
     {
       name: "Anurag Singh Yadav",
