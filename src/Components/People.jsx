@@ -18,7 +18,7 @@ export default function People() {
       bio: "Professor Mathew leads the Mineralogy, Geomicrobiology & Water–Rock Interaction Lab at IIT Bombay, with decades of experience in Mineralogy, Crystallography and Geochemistry.",
     },
      {
-      name: "Prof. Kiran Kondabagi;",
+      name: "Prof. Kiran Kondabagil",
       role: "Professor",
       affiliation: "BSBE, IIT Bombay",
       image: "/Images/kk.png",
