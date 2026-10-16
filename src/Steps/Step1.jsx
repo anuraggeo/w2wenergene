@@ -1,73 +1,25 @@
-import React from "react";
-import { ArrowLeft } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
+import TechStep from "./TechStep.jsx";
 
 export default function Step1() {
-  const navigate = useNavigate();
-
   return (
-    <div className="relative min-h-screen text-neutral-100 overflow-hidden">
-
-      {/* 🎥 Background Video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/videos/Pretreatment.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-
-      {/* 🩵 Dark Overlay for Readability */}
-      <div className="absolute inset-0 bg-black/70"></div>
-
-      {/* 🔤 Foreground Content */}
-      <div className="relative z-10 px-6 py-16 max-w-5xl mx-auto">
-        <button
-          onClick={() => navigate("/")}
-          className="mb-10 flex items-center gap-2 text-sm px-4 py-2 bg-neutral-900/70 rounded-xl hover:bg-neutral-800 transition"
-        >
-          <ArrowLeft size={16} /> Back to Process
-        </button>
-
-        <h1 className="text-5xl font-extrabold text-brand1 mb-4">
-          Step 1 · Pretreatment & Activation
-        </h1>
-
-        <p className="text-lg max-w-4xl leading-relaxed text-neutral-300">
-          The pretreatment phase enhances REE availability by breaking glassy
-          aluminosilicate matrices that encapsulate REEs in coal fly ash.
-          Thermal and chemical activation methods such as desilication, alkali
-          roasting, or Flash Joule Heating (FJH) are employed to expose mineral
-          phases containing REEs.
-        </p>
-
-        <ul className="mt-8 space-y-4 text-neutral-300">
-          <li>
-            ⚙️ <b>Desilication:</b> NaOH or KOH treatment dissolves amorphous
-            silica and increases porosity.
-          </li>
-          <li>
-            🔥 <b>FJH or roasting:</b> Rapid heating up to ~1000 °C converts
-            REE-bearing glassy phases to crystalline oxides.
-          </li>
-          <li>
-            🧪 <b>Outcome:</b> Accessibility of REEs increases ~2–3× for
-            subsequent leaching.
-          </li>
-        </ul>
-
-        <div className="flex justify-center mt-16"></div>
-
-        <Link
-          to="/step2"
-          className="mt-6 bg-brand1 text-neutral-900 px-6 py-2 rounded-xl font-semibold hover:bg-brand2 transition inline-block"
-        >
-          Next Step →
-        </Link>
-      </div>
-    </div>
+    <TechStep
+      step={1}
+      video="Pretreatment"
+      colorClass="text-brand1"
+      buttonClass="bg-brand1 hover:bg-brand2"
+      intro={
+        <>
+          Pretreatment makes rare earth elements easier to reach by breaking down the glassy
+          aluminosilicate matrix that locks them inside coal fly ash. Thermal and chemical activation,
+          such as desilication, alkali roasting or flash Joule heating (FJH), exposes the mineral
+          phases that contain REEs.
+        </>
+      }
+      points={[
+        { icon: "⚙️", label: "Desilication", text: "NaOH or KOH treatment dissolves amorphous silica and increases porosity." },
+        { icon: "🔥", label: "FJH or roasting", text: "Rapid heating to around 1000 °C converts REE-bearing glassy phases into crystalline oxides." },
+        { icon: "🧪", label: "Outcome", text: "REEs become roughly two to three times more accessible for the leaching step." },
+      ]}
+    />
   );
 }
