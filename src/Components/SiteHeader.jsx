@@ -34,16 +34,16 @@ export default function SiteHeader({ current = "/" }) {
 
   return (
     <header className="sticky top-0 z-40 glass border-b border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-        <Link to="/" className="flex items-center gap-2 shrink-0" onClick={close}>
-          <img src="/Images/logo.png" alt="" width="32" height="32" className="h-8 w-8" />
-          <span className="font-extrabold tracking-tight text-xl">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-4">
+        <Link to="/" className="flex items-center gap-3 shrink-0" onClick={close}>
+          <img src="/Images/logo.png" alt="" width="56" height="56" className="h-12 w-12 sm:h-14 sm:w-14" />
+          <span className="font-extrabold tracking-tight text-xl sm:text-2xl">
             W2W <span className="text-brand1">Ener</span>
             <span className="text-brand3">Gene</span>
           </span>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm" aria-label="Main">
+        <nav className="hidden lg:flex items-center gap-6 text-sm" aria-label="Main">
           {NAV.map((item) => (
             <NavItem key={item.label} item={item} current={current} className="transition-opacity" />
           ))}
@@ -52,13 +52,13 @@ export default function SiteHeader({ current = "/" }) {
         <div className="flex items-center gap-2">
           <a
             href="/#contact"
-            className="hidden sm:inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-sm text-neutral-900 font-semibold shadow hover:shadow-lg"
+            className="hidden sm:inline-flex items-center gap-2 whitespace-nowrap rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-sm text-neutral-900 font-semibold shadow hover:shadow-lg"
           >
             Partner with us →
           </a>
           <button
             type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-xl p-2 hover:bg-white/10"
+            className="lg:hidden inline-flex items-center justify-center rounded-xl p-2 hover:bg-white/10"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -70,7 +70,7 @@ export default function SiteHeader({ current = "/" }) {
       </div>
 
       {open && (
-        <nav id="mobile-menu" className="md:hidden border-t border-white/5 px-4 pb-4" aria-label="Main">
+        <nav id="mobile-menu" className="lg:hidden border-t border-white/5 px-4 pb-4" aria-label="Main">
           <ul className="flex flex-col py-2">
             {NAV.map((item) => (
               <li key={item.label}>

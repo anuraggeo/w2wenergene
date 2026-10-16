@@ -13,7 +13,7 @@ html {
 
 /* Keep section headings clear of the sticky header when jumping to #links */
 section[id] {
-  scroll-margin-top: 72px;
+  scroll-margin-top: 84px;
 }
 
 /* =============== CORE THEME =============== */
