@@ -6,9 +6,9 @@ export default function SiteFooter() {
     <footer className="relative z-10 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 grid gap-8 md:grid-cols-3 text-sm">
         <div>
-          <Link to="/" className="flex items-center gap-2">
-            <img src="/Images/logo.png" alt="" width="32" height="32" className="h-8 w-8" />
-            <span className="font-bold">W2W EnerGene</span>
+          <Link to="/" className="flex items-center gap-3">
+            <img src="/Images/logo.png" alt="" width="64" height="64" className="h-16 w-16" />
+            <span className="font-bold text-lg">W2W EnerGene</span>
           </Link>
           <p className="mt-3 text-neutral-400 max-w-xs">{SITE.status}</p>
         </div>
