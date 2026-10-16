@@ -1,0 +1,6 @@
+# Old addresses → new ones (works on Cloudflare Pages and Netlify)
+/step1      /technology/pretreatment       301
+/step2      /technology/bioleaching        301
+/step3      /technology/recovery           301
+/step4      /technology/co2-sequestration  301
+/post.html  /updates                       301

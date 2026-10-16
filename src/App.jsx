@@ -1,115 +1,40 @@
-import "./App.css";
-import Hero from "./Components/Hero";
-import KPIs from "./Components/KPIs";
-import Pipeline from "./Components/Pipeline";
-import Simulator from "./Components/Simulator";
+// Home page
+import PageShell from "./Components/PageShell.jsx";
+import Hero from "./Components/Hero.jsx";
+import WhyItMatters from "./Components/WhyItMatters.jsx";
+import Pipeline from "./Components/Pipeline.jsx";
+import KPIs from "./Components/KPIs.jsx";
+import Simulator from "./Components/Simulator.jsx";
+import Roadmap from "./Components/Roadmap.jsx";
 import Contact from "./Components/Contact.jsx";
-import Roadmap from "./Components/Roadmap";
-
-import { Link } from "react-router-dom";
+import usePageMeta from "./hooks/usePageMeta.js";
+import { getPageMeta } from "./data/site.js";
 
 export default function App() {
+  usePageMeta(getPageMeta("/"));
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 relative">
-      <div className="grid-bg" />
+    <PageShell current="/">
+      <main>
+        <Hero />
+        <WhyItMatters />
+        <Pipeline />
+        <KPIs />
 
-      {/* Header */}
-      <header className="sticky top-0 z-40 glass border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <img
-              src="/Images/logo.png"
-              alt="W2W EnerGene logo"
-              className="h-8 w-auto"
-            />
-            <a className="font-extrabold tracking-tight text-xl">
-              W2W <span className="text-brand1">Ener</span>
-              <span className="text-brand3">Gene</span>
-            </a>
-          </div>
-
-          <nav className="hidden md:flex items-center gap-6 text-sm opacity-90">
-            <a href="/#tech">Technology</a>
-            <a href="/#impact">Impact</a>
-            <a href="/#roadmap">Roadmap</a>
-
-            {/* People page route */}
-            <Link to="/people" className="hover:opacity-100 opacity-80">
-              People
-            </Link>
-
-            <a href="/#contact">Contact</a>
-
-            {/* Updates page route */}
-            <Link to="/updates" className="hover:opacity-100 opacity-80">
-              Updates
-            </Link>
-          </nav>
-
-          <a
-            href="/#contact"
-            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand1 to-brand2 px-4 py-2 text-neutral-900 font-semibold shadow hover:shadow-lg"
-          >
-            Get early access →
-          </a>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <Hero />
-
-      {/* KPIs Section */}
-      <KPIs />
-
-      {/* Pipeline Section */}
-      <Pipeline />
-
-      {/* Simulator Section */}
-      <section id="tech" className="py-14 relative z-10 text-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-            Interactive technology sandbox
-          </h2>
-          <Simulator />
-        </div>
-      </section>
-
-      {/* Roadmap + Contact */}
-      <Roadmap />
-      <Contact />
-
-      {/* Footer */}
-      <footer className="border-t border-white/5">
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm opacity-80">
-          <div className="flex items-center gap-2">
-            <img
-              src="/Images/logo.png"
-              alt="W2W EnerGene logo"
-              className="h-8 w-auto"
-            />
-            <div className="font-bold">W2W EnerGene</div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <a href="/#tech">Technology</a>
-            <a href="/#impact">Impact</a>
-            <a href="/#roadmap">Roadmap</a>
-
-            {/* Route link */}
-            <Link to="/people">People</Link>
-
-            {/* Still a section on this page */}
-            <a href="/#contact">Contact</a>
-
-            {/* Updates React route */}
-            <Link to="/updates">Updates</Link>
-          </div>
-
-          <div className="opacity-60">
-            © {new Date().getFullYear()} W2W EnerGene. All rights reserved.
+        <section id="simulator" className="py-14 relative z-10">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-center">Interactive technology sandbox</h2>
+            <p className="text-neutral-400 text-center max-w-2xl mx-auto mb-8">
+              Move the sliders to see how pH, pulp density and time trade off against each other in
+              bioleaching.
+            </p>
+            <Simulator />
           </div>
         </section>
-      </footer>
-    </div>
+
+        <Roadmap />
+        <Contact />
+      </main>
+    </PageShell>
   );
 }

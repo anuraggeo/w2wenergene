@@ -1,32 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>W2W EnerGene — Waste to Wealth with Engineered Microbes</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--seo:start-->
+    <title>W2W EnerGene — Waste to Wealth with Engineered Microbes</title>
+    <meta name="description" content="Microbial bioprocesses that recover rare earth elements from coal fly ash and lock CO₂ in the residue. A venture in formation from research at IIT Bombay." />
+    <link rel="canonical" href="https://www.w2wenergene.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="W2W EnerGene — Waste to Wealth with Engineered Microbes" />
+    <meta property="og:description" content="Microbial bioprocesses that recover rare earth elements from coal fly ash and lock CO₂ in the residue. A venture in formation from research at IIT Bombay." />
+    <meta property="og:url" content="https://www.w2wenergene.com/" />
+    <meta name="twitter:title" content="W2W EnerGene — Waste to Wealth with Engineered Microbes" />
+    <meta name="twitter:description" content="Microbial bioprocesses that recover rare earth elements from coal fly ash and lock CO₂ in the residue. A venture in formation from research at IIT Bombay." />
+    <!--seo:end-->
+    <meta property="og:site_name" content="W2W EnerGene" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:image" content="https://www.w2wenergene.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="W2W EnerGene logo with the line: waste to wealth with engineered microbes" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://www.w2wenergene.com/og-image.png" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="alternate" type="application/rss+xml" title="W2W EnerGene — Updates" href="/feed.xml" />
 
-  <!-- Fonts + Tailwind (same as your old site) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: { brand1:'#10B981', brand2:'#06B6D4', brand3:'#6366F1' }
-        }
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "W2W EnerGene",
+        "url": "https://www.w2wenergene.com/",
+        "logo": "https://www.w2wenergene.com/Images/logo-512.png",
+        "email": "contact@w2wenergene.com",
+        "description": "Microbial bioprocesses that recover rare earth elements from coal fly ash and lock CO₂ in the residue.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressRegion": "Maharashtra", "addressCountry": "IN" }
       }
-    }
-  </script>
+    </script>
 
-  <!-- Chart.js for the simulator -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+    <!-- Keeps the page dark while styles load -->
+    <style>html,body{background:#0a0a0a;color:#f5f5f5;font-family:Inter,system-ui,sans-serif}</style>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind (runtime CDN). See README: moving to a build-time Tailwind install is the next speed-up. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { brand1: "#10B981", brand2: "#06B6D4", brand3: "#6366F1" },
+          },
+        },
+      };
+    </script>
+  </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
