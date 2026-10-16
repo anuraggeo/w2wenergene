@@ -42,8 +42,8 @@ export default function Privacy() {
           <section>
             <h2 className="text-xl font-semibold text-neutral-100">Services involved</h2>
             <p className="mt-2">
-              Messages from the contact form are delivered to our inbox through a form-delivery
-              service. The map on the contact section is provided by Google Maps, which may set its own
+              Messages from the contact form are delivered to our inbox through Formspree, a
+              form-delivery service. The map on the contact section is provided by Google Maps, which may set its own
               cookies when it loads.
             </p>
           </section>

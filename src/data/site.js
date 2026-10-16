@@ -15,7 +15,7 @@ export const SITE = {
   // 2. Paste its endpoint here, e.g. "https://formspree.io/f/abcdwxyz".
   // You can also set VITE_FORM_ENDPOINT in Cloudflare Pages > Settings > Environment variables instead.
   // While this is empty, the form opens the visitor's email app with the message filled in.
-  formEndpoint: "",
+  formEndpoint: "https://formspree.io/f/xeaevbor",
 
   // One honest line about the company's status. Update it after incorporation
   // (for example: "W2W EnerGene Private Limited · CIN U00000MH2026PTC000000").
